@@ -13,6 +13,7 @@ import UserMenuDropdown from "./components/UserMenuDropdown";
 
 import ProductListScreen from "./pages/ProductListScreen";
 import Login from "./pages/Login";
+import RegisterScreen from "./pages/RegisterScreen";
 
 function App() {
     const auth = useAuth();
@@ -22,15 +23,30 @@ function App() {
             logoComponent="h2"
             headerTools={
                 <PageHeaderTools>
-                    {auth.userData ? (
+                    {auth.isAuthenticated ? (
                         <UserMenuDropdown />
                     ) : (
-                        <Link
-                            to={"/login"}
-                            style={{ textDecoration: "none", color: "white" }}
-                        >
-                            Iniciar sesión
-                        </Link>
+                        <>
+                            <Link
+                                to={"/login"}
+                                style={{
+                                    textDecoration: "none",
+                                    color: "white",
+                                    marginRight: 30,
+                                }}
+                            >
+                                Iniciar sesión
+                            </Link>
+                            <Link
+                                to={"/register"}
+                                style={{
+                                    textDecoration: "none",
+                                    color: "white",
+                                }}
+                            >
+                                Registrarse
+                            </Link>
+                        </>
                     )}
                 </PageHeaderTools>
             }
@@ -43,6 +59,7 @@ function App() {
             <Page header={Header}>
                 <Routes>
                     <Route path="/login" element={<Login />} />
+                    <Route path="/register" element={<RegisterScreen />} />
                     <Route path="/products" element={<ProductListScreen />} />
                     <Route path="*" element={<Navigate to="/products" />} />
                 </Routes>
